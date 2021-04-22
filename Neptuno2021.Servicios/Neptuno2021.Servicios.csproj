@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB545652-02B0-4A3D-BA66-876C62E755CF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Neptuno2021.Servicios</RootNamespace>
+    <AssemblyName>Neptuno2021.Servicios</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\Facades\IServicioCiudades.cs" />
+    <Compile Include="Servicios\Facades\IServicioClientes.cs" />
+    <Compile Include="Servicios\Facades\IServicioProductos.cs" />
+    <Compile Include="Servicios\Facades\IServicioProveedores.cs" />
+    <Compile Include="Servicios\Facades\IServiciosCategorias.cs" />
+    <Compile Include="Servicios\Facades\IServiciosPais.cs" />
+    <Compile Include="Servicios\Facades\IServicioVentas.cs" />
+    <Compile Include="Servicios\ServicioCiudades.cs" />
+    <Compile Include="Servicios\ServicioClientes.cs" />
+    <Compile Include="Servicios\ServicioProductos.cs" />
+    <Compile Include="Servicios\ServicioProveedores.cs" />
+    <Compile Include="Servicios\ServiciosCategorias.cs" />
+    <Compile Include="Servicios\ServiciosPaises.cs" />
+    <Compile Include="Servicios\ServicioVentas.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuno2021.BL\Neptuno2021.BL.csproj">
+      <Project>{cd36fa0c-3964-4c9a-8c02-75561309b9cc}</Project>
+      <Name>Neptuno2021.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neptuno2021.DL\Neptuno2021.DL.csproj">
+      <Project>{86718eca-063e-4267-835b-14eb35ee15e0}</Project>
+      <Name>Neptuno2021.DL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
