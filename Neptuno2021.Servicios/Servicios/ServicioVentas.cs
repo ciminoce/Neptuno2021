@@ -23,7 +23,8 @@ namespace Neptuno2021.Servicios.Servicios
             try
             {
                 _conexionBd = new ConexionBd();
-                _repositorio = new RepositorioVentas(_conexionBd.AbrirConexion());
+                _repositorioDetalle = new RepositorioDetalleVentas(_conexionBd.AbrirConexion());
+                _repositorio = new RepositorioVentas(_conexionBd.AbrirConexion(),_repositorioDetalle);
                 var lista = _repositorio.GetLista();
                 _conexionBd.CerrarConexion();
                 return lista;

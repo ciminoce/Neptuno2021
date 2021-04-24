@@ -32,7 +32,7 @@ namespace Neptuno2021.Windows
             /*  Utilizando Linq obtengo el total
              de la venta sumando el producto de las cantidades 
             por el precio de cada producto*/
-            txtTotalPedido.Text = _lista.Sum(i => i.PrecioUnitario *(decimal) i.Cantidad).ToString();
+            txtTotalPedido.Text = _lista.Sum(i => i.PrecioUnitario *(decimal) i.Cantidad).ToString("C");
         }
 
         private void MostrarDatosEnGrilla()
@@ -49,9 +49,9 @@ namespace Neptuno2021.Windows
         private void SetearFila(DataGridViewRow r, DetalleVentaListDto detalleVentaListDto)
         {
             r.Cells[cmnProducto.Index].Value = detalleVentaListDto.Producto;
-            r.Cells[cmnPrecioUnitario.Index].Value = detalleVentaListDto.PrecioUnitario;
+            r.Cells[cmnPrecioUnitario.Index].Value = detalleVentaListDto.PrecioUnitario.ToString("c");
             r.Cells[cmnCantidad.Index].Value = detalleVentaListDto.Cantidad;
-            r.Cells[cmnTotal.Index].Value = detalleVentaListDto.Total;
+            r.Cells[cmnTotal.Index].Value = detalleVentaListDto.Total.ToString("C");
 
             r.Tag = detalleVentaListDto;
         }

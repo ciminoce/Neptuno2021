@@ -6,7 +6,7 @@ namespace Neptuno2021.DL.Repositorios.Facades
 {
     public interface IRepositorioClientes
     {
-        List<ClienteListDto> GetLista();
+        List<ClienteListDto> GetLista(int? paisId, int? ciudadId);
         void Guardar(Cliente cliente);
         bool Existe(Cliente cliente);
         void Borrar(int clienteId);

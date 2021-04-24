@@ -20,13 +20,13 @@ namespace Neptuno2021.Servicios.Servicios
         {
             
         }
-        public List<ClienteListDto> GetLista()
+        public List<ClienteListDto> GetLista(int? paisId, int? ciudadId)
         {
             try
             {
                 _conexionBd = new ConexionBd();
                 _repositorio = new RepositorioClientes(_conexionBd.AbrirConexion());
-                var lista = _repositorio.GetLista();
+                var lista = _repositorio.GetLista(paisId, ciudadId);
                 _conexionBd.CerrarConexion();
                 return lista;
 

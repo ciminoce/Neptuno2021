@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Neptuno2021.BL.DTOs.Ciudad;
 using Neptuno2021.BL.DTOs.Cliente;
+using Neptuno2021.BL.DTOs.Pais;
 using Neptuno2021.Servicios.Servicios;
 using Neptuno2021.Servicios.Servicios.Facades;
 
@@ -19,17 +21,8 @@ namespace Neptuno2021.Windows
 
         private void FrmClientes_Load(object sender, EventArgs e)
         {
-                 _servicio = new ServicioClientes();
-           try
-            {
-                _lista = _servicio.GetLista();
-                MostrarDatosEnGrilla();
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
+            _servicio = new ServicioClientes();
+            ActualizarGrilla();
 
         }
 
@@ -122,8 +115,8 @@ namespace Neptuno2021.Windows
             }
 
             DataGridViewRow r = dgvDatos.SelectedRows[0];
-            ClienteListDto clienteListDto = (ClienteListDto) r.Tag;
-            ClienteListDto clienteListDtoAux = (ClienteListDto) clienteListDto.Clone();
+            ClienteListDto clienteListDto = (ClienteListDto)r.Tag;
+            ClienteListDto clienteListDtoAux = (ClienteListDto)clienteListDto.Clone();
             DialogResult dr = MessageBox.Show($"¿Desea dar de baja al cliente {clienteListDto.NombreCompania}?",
                 "Confirmar Baja", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (dr == DialogResult.No)
@@ -155,7 +148,7 @@ namespace Neptuno2021.Windows
 
             DataGridViewRow r = dgvDatos.SelectedRows[0];
             ClienteListDto clienteListDto = (ClienteListDto)r.Tag;
-            ClienteListDto clienteListDtoAuxiliar =(ClienteListDto) clienteListDto.Clone();
+            ClienteListDto clienteListDtoAuxiliar = (ClienteListDto)clienteListDto.Clone();
             FrmClientesAE frm = new FrmClientesAE();
             ClienteEditDto clienteEditDto = _servicio.GetClientePorId(clienteListDto.ClienteId);
             frm.Text = "Editar Cliente";
@@ -197,6 +190,55 @@ namespace Neptuno2021.Windows
                 MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void tsbBuscar_Click(object sender, EventArgs e)
+        {
+            FrmBuscarCliente frm = new FrmBuscarCliente();
+            DialogResult dr = frm.ShowDialog(this);
+            if (dr == DialogResult.OK)
+            {
+                try
+                {
+                    PaisListDto paisDto = frm.GetPais();
+                    CiudadListDto ciudadDto = frm.GetCiudad();
+                    if (paisDto == null)
+                    {
+                        _lista = _servicio.GetLista(null, null);
+                    }
+                    else if (ciudadDto != null)
+                    {
+                        _lista = _servicio.GetLista(paisDto.PaisId, ciudadDto.CiudadId);
+                    }
+                    else
+                    {
+                        _lista = _servicio.GetLista(paisDto.PaisId, null);
+                    }
+                    MostrarDatosEnGrilla();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void tsbActualizar_Click(object sender, EventArgs e)
+        {
+            ActualizarGrilla();
+        }
+
+        private void ActualizarGrilla()
+        {
+            try
+            {
+                _lista = _servicio.GetLista(null, null);
+                MostrarDatosEnGrilla();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

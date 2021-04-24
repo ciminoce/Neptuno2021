@@ -7,6 +7,6 @@
         public decimal PrecioUnitario { get; set; }
         public double Cantidad { get; set; }
 
-        public decimal Total => PrecioUnitario *(decimal) Cantidad;
+        public decimal Total => PrecioUnitario*(decimal) Cantidad;
     }
 }

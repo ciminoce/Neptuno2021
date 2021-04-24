@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Neptuno2021.BL.DTOs.Venta;
 using Neptuno2021.Servicios.Servicios;
 using Neptuno2021.Servicios.Servicios.Facades;
+using Neptuno2021.Windows.Helpers;
 
 namespace Neptuno2021.Windows
 {
@@ -53,6 +54,7 @@ namespace Neptuno2021.Windows
             r.Cells[cmnNroVenta.Index].Value = ventaListDto.VentaId;
             r.Cells[cmnCliente.Index].Value = ventaListDto.Cliente;
             r.Cells[cmnFechaVenta.Index].Value = ventaListDto.FechaVenta.ToShortDateString();
+            r.Cells[cmnTotal.Index].Value = ventaListDto.TotalVenta.ToString("C");
 
             r.Tag = ventaListDto;
         }
@@ -80,10 +82,10 @@ namespace Neptuno2021.Windows
             {
                 DataGridViewRow r = dgvDatos.SelectedRows[0];
                 var ventaDto = (VentaListDto) r.Tag;
-                var listaDetalle = _servicio.GetDetalle(ventaDto.VentaId);
+                //var listaDetalle = _servicio.GetDetalle(ventaDto.VentaId);
                 FrmVerDetallePedido frm = new FrmVerDetallePedido();
                 frm.Text = $"Detalles del Pedido {ventaDto.VentaId}";
-                frm.SetDetalle(listaDetalle);
+                frm.SetDetalle(ventaDto.ItemsVenta);
                 frm.ShowDialog(this);
 
             }
@@ -109,7 +111,9 @@ namespace Neptuno2021.Windows
                     {
                         VentaId = ventaDto.VentaId,
                         Cliente = ventaDto.Cliente.NombreCompania,
-                        FechaVenta = ventaDto.FechaVenta
+                        FechaVenta = ventaDto.FechaVenta,
+                        ItemsVenta = Helper.ConstruirListaItemsListDto(ventaDto.DetalleVentas)
+                        
                     };
                     var r = ConstruirFila();
                     SetearFila(r,ventaListDto);

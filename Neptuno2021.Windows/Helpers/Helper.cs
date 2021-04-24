@@ -1,7 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using Neptuno2021.BL.DTOs.Categoria;
 using Neptuno2021.BL.DTOs.Ciudad;
 using Neptuno2021.BL.DTOs.Cliente;
+using Neptuno2021.BL.DTOs.DetalleVenta;
 using Neptuno2021.BL.DTOs.Pais;
 using Neptuno2021.BL.DTOs.Producto;
 using Neptuno2021.BL.DTOs.Proveedor;
@@ -81,7 +83,7 @@ namespace Neptuno2021.Windows.Helpers
         public static void CargarDatosComboClientes(ref ComboBox combo)
         {
             IServicioClientes servicio = new ServicioClientes();
-            var lista = servicio.GetLista();
+            var lista = servicio.GetLista(null,null);
             var defaultCliente = new ClienteListDto()
             {
                 ClienteId = 0,
@@ -110,6 +112,24 @@ namespace Neptuno2021.Windows.Helpers
             combo.DisplayMember = "NombreProducto";
             combo.SelectedIndex = 0;
 
+        }
+
+        public static List<DetalleVentaListDto> ConstruirListaItemsListDto(List<DetalleVentaEditDto> itemsEditDto)
+        {
+            var listaDto = new List<DetalleVentaListDto>();
+            foreach (var item in itemsEditDto)
+            {
+                var itemDto = new DetalleVentaListDto()
+                {
+                    DetalleVentaId = item.DetalleVentaId,
+                    Producto = item.Producto.NombreProducto,
+                    PrecioUnitario = item.Precio,
+                    Cantidad = item.Cantidad
+                };
+                listaDto.Add(itemDto);
+            }
+
+            return listaDto;
         }
     }
 }

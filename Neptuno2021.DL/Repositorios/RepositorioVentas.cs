@@ -9,12 +9,20 @@ namespace Neptuno2021.DL.Repositorios
 {
     public class RepositorioVentas:IRepositorioVentas
     {
-        private SqlConnection _sqlConnection;
+        private readonly SqlConnection _sqlConnection;
         private SqlTransaction tran;
+        private readonly IRepositorioDetalleVentas _repositorioDetalles;
+
+        public RepositorioVentas(SqlConnection sqlConnection, IRepositorioDetalleVentas repositorioDetalles)
+        {
+            _sqlConnection = sqlConnection;
+            _repositorioDetalles = repositorioDetalles;
+        }
 
         public RepositorioVentas(SqlConnection sqlConnection)
         {
             this._sqlConnection = sqlConnection;
+
         }
 
         public RepositorioVentas(SqlConnection sqlConnection, SqlTransaction tran) : this(sqlConnection)
@@ -53,8 +61,9 @@ namespace Neptuno2021.DL.Repositorios
             {
                 VentaId = reader.GetInt32(0),
                 Cliente = reader.GetString(1),
-                FechaVenta = reader.GetDateTime(2)
-            };
+                FechaVenta = reader.GetDateTime(2),
+                ItemsVenta = _repositorioDetalles.GetLista(reader.GetInt32(0))
+           };
         }
 
         public void Guardar(Venta venta)

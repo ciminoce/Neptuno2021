@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Text;
 using Neptuno2021.BL.DTOs.Ciudad;
 using Neptuno2021.BL.DTOs.Cliente;
 using Neptuno2021.BL.DTOs.Pais;
@@ -26,16 +27,33 @@ namespace Neptuno2021.DL.Repositorios
         {
             _sqlConnection = sqlConnection;
         }
-        public List<ClienteListDto> GetLista()
+        public List<ClienteListDto> GetLista(int? paisId, int? ciudadId)
         {
             List<ClienteListDto> lista = new List<ClienteListDto>();
             try
             {
-                string cadenaComando =
-                    "SELECT ClienteId, NombreCompania, NombrePais, NombreCiudad FROM Clientes " +
-                    "INNER JOIN Paises ON Clientes.PaisId=Paises.PaisId "+
-                    "INNER JOIN Ciudades ON Clientes.CiudadId=Ciudades.CiudadId";
-                SqlCommand comando = new SqlCommand(cadenaComando, _sqlConnection);
+                StringBuilder cadenaComando = new StringBuilder();
+                cadenaComando.Append("SELECT ClienteId, NombreCompania, NombrePais, NombreCiudad FROM Clientes " +
+                                     "INNER JOIN Paises ON Clientes.PaisId=Paises.PaisId "+
+                                     "INNER JOIN Ciudades ON Clientes.CiudadId=Ciudades.CiudadId");
+                if (paisId!=null)
+                {
+                    cadenaComando.Append(" WHERE Clientes.PaisId=@paisId ");
+                    if (ciudadId!=null)
+                    {
+                        cadenaComando.Append(" AND Clientes.CiudadId=@ciudadId");
+                    }
+                }
+                SqlCommand comando = new SqlCommand(cadenaComando.ToString(), _sqlConnection);
+                if (paisId != null)
+                {
+                    comando.Parameters.AddWithValue("@paisId", paisId);
+                    if (ciudadId != null)
+                    {
+                        comando.Parameters.AddWithValue("@ciudadId", ciudadId);
+                    }
+                }
+
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {

@@ -103,7 +103,7 @@ namespace Neptuno2021.DL.Repositorios
         {
             try
             {
-                string cadenaComando = "UPDATE Productos SET UnidadesEnExistencia=UnidadesEnExistencia-@cant WHERE ProductoId=@id";
+                string cadenaComando = "UPDATE Productos SET UnidadesEnExistencia=UnidadesEnExistencia+@cant WHERE ProductoId=@id";
                 var comando = new SqlCommand(cadenaComando, _sqlConnection, _tran);
                 comando.Parameters.AddWithValue("@cant", cantidad);
                 comando.Parameters.AddWithValue("@id", producto.ProductoId);
