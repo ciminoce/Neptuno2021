@@ -18,14 +18,14 @@ namespace Neptuno2021.Servicios.Servicios
         private IRepositorioDetalleVentas _repositorioDetalle;
         private IRepositorioProductos _repositorioProductos;
 
-        public List<VentaListDto> GetLista()
+        public List<VentaListDto> GetLista(int? clienteId, DateTime fechaInicial, DateTime fechaFinal)
         {
             try
             {
                 _conexionBd = new ConexionBd();
                 _repositorioDetalle = new RepositorioDetalleVentas(_conexionBd.AbrirConexion());
                 _repositorio = new RepositorioVentas(_conexionBd.AbrirConexion(),_repositorioDetalle);
-                var lista = _repositorio.GetLista();
+                var lista = _repositorio.GetLista(clienteId, fechaInicial, fechaFinal);
                 _conexionBd.CerrarConexion();
                 return lista;
 

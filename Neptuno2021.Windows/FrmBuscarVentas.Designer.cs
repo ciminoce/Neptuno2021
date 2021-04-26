@@ -29,15 +29,20 @@ namespace Neptuno2021.Windows
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label nameLabel;
             this.ClientesComboBox = new System.Windows.Forms.ComboBox();
-            this.FechaPedidoDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.FechaInicialDatePicker = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.FechaFinalDatePicker = new System.Windows.Forms.DateTimePicker();
             this.ClienteCheckBox = new System.Windows.Forms.CheckBox();
             this.FechasCheckBox = new System.Windows.Forms.CheckBox();
+            this.CancelarButton = new System.Windows.Forms.Button();
+            this.GuardarButton = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             nameLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -58,16 +63,18 @@ namespace Neptuno2021.Windows
             this.ClientesComboBox.Name = "ClientesComboBox";
             this.ClientesComboBox.Size = new System.Drawing.Size(375, 21);
             this.ClientesComboBox.TabIndex = 19;
+            this.ClientesComboBox.SelectedIndexChanged += new System.EventHandler(this.ClientesComboBox_SelectedIndexChanged);
             // 
-            // FechaPedidoDatePicker
+            // FechaInicialDatePicker
             // 
-            this.FechaPedidoDatePicker.Checked = false;
-            this.FechaPedidoDatePicker.Enabled = false;
-            this.FechaPedidoDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.FechaPedidoDatePicker.Location = new System.Drawing.Point(255, 74);
-            this.FechaPedidoDatePicker.Name = "FechaPedidoDatePicker";
-            this.FechaPedidoDatePicker.Size = new System.Drawing.Size(122, 20);
-            this.FechaPedidoDatePicker.TabIndex = 22;
+            this.FechaInicialDatePicker.Checked = false;
+            this.FechaInicialDatePicker.Enabled = false;
+            this.FechaInicialDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.FechaInicialDatePicker.Location = new System.Drawing.Point(255, 74);
+            this.FechaInicialDatePicker.Name = "FechaInicialDatePicker";
+            this.FechaInicialDatePicker.Size = new System.Drawing.Size(122, 20);
+            this.FechaInicialDatePicker.TabIndex = 22;
+            this.FechaInicialDatePicker.ValueChanged += new System.EventHandler(this.FechaInicialDatePicker_ValueChanged);
             // 
             // label3
             // 
@@ -87,15 +94,15 @@ namespace Neptuno2021.Windows
             this.label1.TabIndex = 21;
             this.label1.Text = "Fecha Final:";
             // 
-            // dateTimePicker1
+            // FechaFinalDatePicker
             // 
-            this.dateTimePicker1.Checked = false;
-            this.dateTimePicker1.Enabled = false;
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(508, 74);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePicker1.TabIndex = 22;
+            this.FechaFinalDatePicker.Checked = false;
+            this.FechaFinalDatePicker.Enabled = false;
+            this.FechaFinalDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.FechaFinalDatePicker.Location = new System.Drawing.Point(508, 74);
+            this.FechaFinalDatePicker.Name = "FechaFinalDatePicker";
+            this.FechaFinalDatePicker.Size = new System.Drawing.Size(122, 20);
+            this.FechaFinalDatePicker.TabIndex = 22;
             // 
             // ClienteCheckBox
             // 
@@ -106,6 +113,7 @@ namespace Neptuno2021.Windows
             this.ClienteCheckBox.TabIndex = 23;
             this.ClienteCheckBox.Text = "Cliente";
             this.ClienteCheckBox.UseVisualStyleBackColor = true;
+            this.ClienteCheckBox.CheckedChanged += new System.EventHandler(this.ClienteCheckBox_CheckedChanged);
             // 
             // FechasCheckBox
             // 
@@ -116,22 +124,58 @@ namespace Neptuno2021.Windows
             this.FechasCheckBox.TabIndex = 23;
             this.FechasCheckBox.Text = "Fechas";
             this.FechasCheckBox.UseVisualStyleBackColor = true;
+            this.FechasCheckBox.CheckedChanged += new System.EventHandler(this.FechasCheckBox_CheckedChanged);
+            // 
+            // CancelarButton
+            // 
+            this.CancelarButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelarButton.Image = global::Neptuno2021.Windows.Properties.Resources.Cancelar;
+            this.CancelarButton.Location = new System.Drawing.Point(495, 146);
+            this.CancelarButton.Margin = new System.Windows.Forms.Padding(4);
+            this.CancelarButton.Name = "CancelarButton";
+            this.CancelarButton.Size = new System.Drawing.Size(135, 63);
+            this.CancelarButton.TabIndex = 135;
+            this.CancelarButton.Text = "Cancelar";
+            this.CancelarButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.CancelarButton.UseVisualStyleBackColor = true;
+            this.CancelarButton.Click += new System.EventHandler(this.CancelarButton_Click);
+            // 
+            // GuardarButton
+            // 
+            this.GuardarButton.Image = global::Neptuno2021.Windows.Properties.Resources.Aceptar;
+            this.GuardarButton.Location = new System.Drawing.Point(39, 146);
+            this.GuardarButton.Margin = new System.Windows.Forms.Padding(4);
+            this.GuardarButton.Name = "GuardarButton";
+            this.GuardarButton.Size = new System.Drawing.Size(135, 63);
+            this.GuardarButton.TabIndex = 134;
+            this.GuardarButton.Text = "Guardar";
+            this.GuardarButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.GuardarButton.UseVisualStyleBackColor = true;
+            this.GuardarButton.Click += new System.EventHandler(this.GuardarButton_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // FrmBuscarVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(683, 450);
+            this.ClientSize = new System.Drawing.Size(683, 231);
+            this.Controls.Add(this.CancelarButton);
+            this.Controls.Add(this.GuardarButton);
             this.Controls.Add(this.FechasCheckBox);
             this.Controls.Add(this.ClienteCheckBox);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.FechaPedidoDatePicker);
+            this.Controls.Add(this.FechaFinalDatePicker);
+            this.Controls.Add(this.FechaInicialDatePicker);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.ClientesComboBox);
             this.Controls.Add(nameLabel);
             this.Name = "FrmBuscarVentas";
             this.Text = "FrmBuscarVentas";
+            this.Load += new System.EventHandler(this.FrmBuscarVentas_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,11 +184,14 @@ namespace Neptuno2021.Windows
         #endregion
 
         private System.Windows.Forms.ComboBox ClientesComboBox;
-        private System.Windows.Forms.DateTimePicker FechaPedidoDatePicker;
+        private System.Windows.Forms.DateTimePicker FechaInicialDatePicker;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker FechaFinalDatePicker;
         private System.Windows.Forms.CheckBox ClienteCheckBox;
         private System.Windows.Forms.CheckBox FechasCheckBox;
+        private System.Windows.Forms.Button CancelarButton;
+        private System.Windows.Forms.Button GuardarButton;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

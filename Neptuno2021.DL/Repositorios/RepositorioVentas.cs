@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Text;
 using Neptuno2021.BL.DTOs.Venta;
 using Neptuno2021.BL.Entidades;
 using Neptuno2021.DL.Repositorios.Facades;
@@ -30,15 +31,39 @@ namespace Neptuno2021.DL.Repositorios
             this.tran = tran;
         }
 
-        public List<VentaListDto> GetLista()
+        public List<VentaListDto> GetLista(int? clienteId, DateTime fechaInicial, DateTime fechaFinal)
         {
-            List<VentaListDto> lista = new List<VentaListDto>();
             try
             {
-                string cadenaComando =
+                var fecha1 = $"{fechaInicial.Year}{fechaInicial.Month.ToString().PadLeft(2, '0')}{fechaInicial.Day.ToString().PadLeft(2, '0')}";
+                var fecha2 = $"{fechaFinal.Year}{fechaFinal.Month.ToString().PadLeft(2, '0')}{fechaFinal.Day.ToString().PadLeft(2, '0')}";
+               List<VentaListDto> lista = new List<VentaListDto>();
+
+                StringBuilder cadenaComando = new StringBuilder(
                     "SELECT PedidoId, NombreCompania, FechaPedido FROM Pedidos " +
-                    "INNER JOIN Clientes ON Clientes.ClienteId=Pedidos.ClienteId";
-                SqlCommand comando = new SqlCommand(cadenaComando, _sqlConnection);
+                    "INNER JOIN Clientes ON Clientes.ClienteId=Pedidos.ClienteId");
+                    ;
+                    cadenaComando.Append(" WHERE ");
+                if (clienteId!=null)
+                {
+                    cadenaComando.Append(" Pedidos.ClienteId=@id AND ");
+                    cadenaComando.Append(" (CAST(FechaPedido AS Date) >= CAST(@fecha1 AS Date) AND CAST(FechaPedido AS Date)<=CAST(@fecha2 AS Date)) ORDER BY FechaPedido");
+                    
+                }
+                else
+                {
+                    cadenaComando.Append(" CAST(FechaPedido AS Date) >= CAST(@fecha1 AS Date) AND CAST(FechaPedido AS Date)<=CAST(@fecha2 AS Date) ORDER BY FechaPedido");
+                    
+                }
+
+                SqlCommand comando = new SqlCommand(cadenaComando.ToString(), _sqlConnection);
+                if (clienteId!=null)
+                {
+                    comando.Parameters.AddWithValue("@id", clienteId);
+                }
+
+                comando.Parameters.AddWithValue("@fecha1", fecha1);
+                comando.Parameters.AddWithValue("@fecha2", fecha2);
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {

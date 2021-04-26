@@ -29,9 +29,9 @@ namespace Neptuno2021.Windows
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
             this.cmnNroVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,9 +66,9 @@ namespace Neptuno2021.Windows
             // 
             this.dgvDatos.AllowUserToAddRows = false;
             this.dgvDatos.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cmnNroVenta,
@@ -93,8 +93,8 @@ namespace Neptuno2021.Windows
             // 
             // cmnFechaVenta
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.cmnFechaVenta.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.cmnFechaVenta.DefaultCellStyle = dataGridViewCellStyle5;
             this.cmnFechaVenta.HeaderText = "Fecha Venta";
             this.cmnFechaVenta.Name = "cmnFechaVenta";
             this.cmnFechaVenta.ReadOnly = true;
@@ -109,8 +109,8 @@ namespace Neptuno2021.Windows
             // 
             // cmnTotal
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.cmnTotal.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.cmnTotal.DefaultCellStyle = dataGridViewCellStyle6;
             this.cmnTotal.HeaderText = "Total";
             this.cmnTotal.Name = "cmnTotal";
             this.cmnTotal.ReadOnly = true;
@@ -169,6 +169,7 @@ namespace Neptuno2021.Windows
             this.tsbBuscar.Size = new System.Drawing.Size(46, 59);
             this.tsbBuscar.Text = "Buscar";
             this.tsbBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tsbBuscar.Click += new System.EventHandler(this.tsbBuscar_Click);
             // 
             // tsbActualizar
             // 
@@ -179,6 +180,7 @@ namespace Neptuno2021.Windows
             this.tsbActualizar.Size = new System.Drawing.Size(63, 59);
             this.tsbActualizar.Text = "Actualizar";
             this.tsbActualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tsbActualizar.Click += new System.EventHandler(this.tsbActualizar_Click);
             // 
             // toolStripSeparator2
             // 

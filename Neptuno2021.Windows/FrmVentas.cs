@@ -25,17 +25,7 @@ namespace Neptuno2021.Windows
         private void FrmVentas_Load(object sender, EventArgs e)
         {
             _servicio = new ServicioVentas();
-            try
-            {
-                _lista = _servicio.GetLista();
-                MostrarDatosEnGrilla();
-
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
+            InicializarGrilla();
         }
 
         private void MostrarDatosEnGrilla()
@@ -128,6 +118,58 @@ namespace Neptuno2021.Windows
                 }
             }
 
+        }
+
+        private void tsbBuscar_Click(object sender, EventArgs e)
+        {
+            FrmBuscarVentas frm = new FrmBuscarVentas();
+            frm.Text = "Parámetros de búsqueda";
+            DialogResult dr = frm.ShowDialog(this);
+            if (dr==DialogResult.OK)
+            {
+                try
+                {
+                    var clienteDto = frm.GetCliente();
+                    var fechaInicial = frm.GetFechaInicial();
+                    var fechaFinal = frm.GetFechaFinal();
+                    if (clienteDto!=null)
+                    {
+                        _lista = _servicio.GetLista(clienteDto.ClienteId, fechaInicial, fechaFinal);
+                        
+                    }
+                    else
+                    {
+                        _lista = _servicio.GetLista(null, fechaInicial, fechaFinal);
+                        
+                    }
+                    MostrarDatosEnGrilla();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void tsbActualizar_Click(object sender, EventArgs e)
+        {
+            InicializarGrilla();
+        }
+
+        private void InicializarGrilla()
+        {
+            try
+            {
+                _lista = _servicio.GetLista(null, DateTime.Today.AddYears(-50), DateTime.Today);
+                MostrarDatosEnGrilla();
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
     }
 }
